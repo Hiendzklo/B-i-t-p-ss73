@@ -1,0 +1,49 @@
+.task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .task-item input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  .task-item span {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .task-item .edit-button, 
+  .task-item .save-button, 
+  .task-item .cancel-button, 
+  .task-item .delete-button {
+    margin-left: 10px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px 10px;
+  }
+  
+  .task-item .delete-button {
+    background-color: #dc3545;
+  }
+  
+  .task-item .cancel-button {
+    background-color: #6c757d;
+  }
+  
+  .task-item .save-button {
+    background-color: #28a745;
+  }
+  
+  .task-item .edit-button:hover, 
+  .task-item .save-button:hover, 
+  .task-item .cancel-button:hover, 
+  .task-item .delete-button:hover {
+    opacity: 0.8;
+  }
+  

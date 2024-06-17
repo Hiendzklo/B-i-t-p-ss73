@@ -1,0 +1,68 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.app {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 400px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 24px;
+  color: #333;
+}
+
+.add-task-button {
+  margin-bottom: 20px;
+  padding: 13px 70px;
+  font-size: 16px; 
+  background-color: #007bff;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.add-task-button:hover {
+  background-color: #0056b3;
+}
+
+.filter-buttons, .task-actions {
+  margin: 10px 0;
+}
+
+.filter-buttons button, .task-actions button {
+  margin: 0 5px;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.filter-buttons button {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.filter-buttons button:hover {
+  background-color: #138496;
+}
+
+.task-actions button {
+  background-color: #ffc107;
+  color: white;
+}
+
+.task-actions button:hover {
+  background-color: #e0a800;
+}

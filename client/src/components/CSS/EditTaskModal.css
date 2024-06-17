@@ -1,0 +1,65 @@
+.edit-task-modal {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+  }
+  
+  .edit-task-overlay {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-task-modal h2 {
+    margin-bottom: 20px;
+  }
+  
+  .edit-task-modal input[type="text"] {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .edit-task-modal button {
+    padding: 10px 15px;
+    margin: 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .edit-task-modal .save-button {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .edit-task-modal .save-button:hover {
+    background-color: #218838;
+  }
+  
+  .edit-task-modal .cancel-button {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .edit-task-modal .cancel-button:hover {
+    background-color: #c82333;
+  }
+  
+  .edit-task-modal .error {
+    color: red;
+    margin-bottom: 20px;
+  }
+  

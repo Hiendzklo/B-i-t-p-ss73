@@ -1,0 +1,20 @@
+.task-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .task-actions button {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin: 0 5px;
+  }
+  
+  .task-actions button:hover {
+    background-color: #e0a800;
+  }
+  
