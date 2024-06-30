@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
+import Loading from './Loading';
 import '../CSS/EditTaskModal.css';
 
 interface Task {
@@ -17,11 +18,14 @@ interface EditTaskModalProps {
   onTaskUpdate: () => void;
 }
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 const EditTaskModal: React.FC<EditTaskModalProps> = ({ isOpen, onRequestClose, task, tasks, onTaskUpdate }) => {
   const [newTitle, setNewTitle] = useState(task.title);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState<boolean>(false);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (newTitle.trim() === '') {
       setError('Tên công việc không được phép để trống');
       return;
@@ -32,14 +36,17 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ isOpen, onRequestClose, t
       return;
     }
 
-    axios.patch(`http://localhost:8080/tasks/${task.id}`, { title: newTitle })
-      .then(response => {
-        onTaskUpdate();
-        onRequestClose();
-      })
-      .catch(error => {
-        setError('Có lỗi xảy ra khi cập nhật công việc');
-      });
+    setLoading(true);
+    try {
+      await axios.patch(`http://localhost:8080/tasks/${task.id}`, { title: newTitle });
+      await delay(2000); 
+      onTaskUpdate();
+      onRequestClose();
+    } catch (error) {
+      setError('Có lỗi xảy ra khi cập nhật công việc');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -56,14 +63,16 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({ isOpen, onRequestClose, t
       overlayClassName="edit-task-overlay"
     >
       <h2>Chỉnh sửa công việc</h2>
+      {loading && <Loading />}
       {error && <p className="error">{error}</p>}
       <input 
         type="text" 
         value={newTitle} 
         onChange={(e) => setNewTitle(e.target.value)} 
+        disabled={loading}
       />
-      <button className="save-button" onClick={handleSave}>Cập nhật</button>
-      <button className="cancel-button" onClick={handleCancel}>Hủy</button>
+      <button className="save-button" onClick={handleSave} disabled={loading}>Cập nhật</button>
+      <button className="cancel-button" onClick={handleCancel} disabled={loading}>Hủy</button>
     </Modal>
   );
 };

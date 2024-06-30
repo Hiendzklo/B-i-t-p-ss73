@@ -1,5 +1,6 @@
 import React from 'react';
 import TaskItem from './TaskItem';
+import Loading from './Loading';
 
 interface Task {
   id: number;

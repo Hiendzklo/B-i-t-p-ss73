@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 import axios from 'axios';
-import '../CSS/AddTaskModal.css'
+import Loading from './Loading';
+import '../CSS/AddTaskModal.css';
 
 interface Task {
   id: number;
@@ -16,9 +17,12 @@ interface AddTaskModalProps {
   onTaskAdded: (task: Task) => void;
 }
 
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onRequestClose, tasks, onTaskAdded }) => {
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -31,7 +35,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onRequestClose, tas
     }
   }, [isOpen]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (title.trim() === '') {
       setError('Tên công việc không được phép để trống');
       return;
@@ -42,14 +46,17 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onRequestClose, tas
       return;
     }
 
-    axios.post('http://localhost:8080/tasks', { title, completed: false })
-      .then(response => {
-        onTaskAdded(response.data);
-        onRequestClose();
-      })
-      .catch(error => {
-        setError('Có lỗi xảy ra khi thêm công việc');
-      });
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost:8080/tasks', { title, completed: false });
+      await delay(2000); 
+      onTaskAdded(response.data);
+      onRequestClose();
+    } catch (error) {
+      setError('Có lỗi xảy ra khi thêm công việc');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCancel = () => {
@@ -66,6 +73,7 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onRequestClose, tas
       overlayClassName="add-task-overlay"
     >
       <h2>Thêm công việc mới</h2>
+      {loading && <Loading />}
       {error && <p className="error">{error}</p>}
       <input
         ref={inputRef}
@@ -73,9 +81,10 @@ const AddTaskModal: React.FC<AddTaskModalProps> = ({ isOpen, onRequestClose, tas
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Nhập tên công việc"
+        disabled={loading}
       />
-      <button className="save-button" onClick={handleSave}>Thêm</button>
-      <button className="cancel-button" onClick={handleCancel}>Hủy</button>
+      <button className="save-button" onClick={handleSave} disabled={loading}>Thêm</button>
+      <button className="cancel-button" onClick={handleCancel} disabled={loading}>Hủy</button>
     </Modal>
   );
 };

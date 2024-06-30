@@ -1,7 +1,7 @@
 {
   "tasks": [
     {
-      "title": "Nấu cơm",
+      "title": "Nấu cơmm",
       "completed": false,
       "id": 1
     },
@@ -24,6 +24,11 @@
       "title": "Rửa Bát",
       "completed": false,
       "id": 5
+    },
+    {
+      "title": "Chơi game",
+      "completed": false,
+      "id": 6
     }
   ]
 }
